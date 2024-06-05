@@ -72,8 +72,14 @@ func RequestFormat(r *http.Request) []byte {
 				buf.WriteString("")
 				if err := json.Indent(buf.buf, b, "", "  "); err == nil {
 					buf.WriteString("")
+				} else {
+					buf.WriteString(string(b))
 				}
+			} else {
+				buf.WriteString(err.Error())
 			}
+		default:
+			buf.WriteString("Unsupported media type")
 		}
 	}
 	buf.WriteString("")
